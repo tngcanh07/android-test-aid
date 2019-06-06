@@ -2,62 +2,39 @@ package com.github.tngcanh07.aid.layout
 
 import android.app.Activity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.tngcanh07.aid.R
+import com.github.tngcanh07.aid.layout.analysis.analysisLayouts
 import kotlinx.android.synthetic.main.analysis_layout_activity.containerView
-import kotlinx.android.synthetic.main.analysis_layout_activity.statusText
-import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
-import kotlin.system.measureNanoTime
+import kotlinx.android.synthetic.main.analysis_layout_activity.recyclerView
 
 /**
  * Created by toannguyen
  * Jun 05, 2019 at 17:13
  */
 class LayoutAnalysisActivity : Activity() {
+  private lateinit var adapter: LayoutAnalysisAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.analysis_layout_activity)
 
     val resPackageName = intent?.extras?.getString(EXTRA_RES_PACKAGE_NAME)
+    val ignores = intent?.extras?.getStringArrayList(EXTRA_IGNORE_NAMES) ?: emptyList<String>()
     if (resPackageName.isNullOrBlank()) {
       throw IllegalArgumentException("Resource's package is required")
     }
 
-    analysis(resPackageName)
-  }
+    adapter = LayoutAnalysisAdapter()
+    recyclerView.layoutManager = LinearLayoutManager(this)
+    recyclerView.adapter = adapter
 
-  private fun analysis(resPackageName: String) {
-    val fields = Class.forName("$resPackageName.R\$layout")
-        .fields
-    val formatter = DecimalFormat()
-    val resultBuilder = StringBuilder("$resPackageName\n")
-    for (field in fields) {
-      try {
-        val resId = resources.getIdentifier(field.name, "layout", packageName)
-        val time = measureNanoTime {
-          containerView.removeAllViews()
-          layoutInflater.inflate(resId, containerView, true)
-        }
-        if (time > TimeUnit.MILLISECONDS.toNanos(16)) {
-          resultBuilder.append("*")
-        }
-        resultBuilder.append(formatter.format(time))
-        resultBuilder.append("\t: ")
-        resultBuilder.append(field.name)
-        resultBuilder.append('\n')
-      } catch (e: Exception) {
-        resultBuilder.append("ERROR\t: ")
-        resultBuilder.append(field.name)
-        resultBuilder.append('\n')
-        resultBuilder.append(e.localizedMessage)
-        resultBuilder.append('\n')
-      }
-    }
-    statusText.text = resultBuilder.toString()
+    val data = analysisLayouts(containerView, resPackageName, ignores)
+    adapter.bind(sort(data))
   }
 
   companion object {
     const val EXTRA_RES_PACKAGE_NAME = "extra.packageName"
+    const val EXTRA_IGNORE_NAMES = "extra.ignoreNames"
   }
 }

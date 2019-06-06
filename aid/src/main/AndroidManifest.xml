@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.github.tngcanh07.aid">
-    <application>
-        <activity android:name=".layout.LayoutAnalysisActivity"
-                  android:screenOrientation="portrait"
-                  android:label="@string/analysis_layout_title"/>
-    </application>
+    package="com.github.tngcanh07.aid">
+
+  <application>
+    <activity
+        android:name=".layout.LayoutAnalysisActivity"
+        android:label="@string/analysis_layout_title"
+        android:screenOrientation="portrait"/>
+  </application>
 
 </manifest>
