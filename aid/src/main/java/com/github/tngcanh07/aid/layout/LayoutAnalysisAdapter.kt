@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.tngcanh07.aid.R
-import com.github.tngcanh07.aid.hide
+import com.github.tngcanh07.aid.gone
 import com.github.tngcanh07.aid.layout.analysis.LayoutAnalysis
 import com.github.tngcanh07.aid.layout.analysis.LayoutAnalysis.Error
 import com.github.tngcanh07.aid.layout.analysis.LayoutAnalysis.Success
@@ -76,7 +76,7 @@ class LayoutAnalysisAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         warningIcon.show()
         itemView.setBackgroundResource(R.color.warning_background)
       } else {
-        warningIcon.hide()
+        warningIcon.gone()
         itemView.setBackgroundResource(R.color.normal_background)
       }
       renderTimeText.text = model.getFormattedRenderTime()

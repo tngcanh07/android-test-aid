@@ -3,7 +3,6 @@ package com.github.tngcanh07.aid.layout
 import com.github.tngcanh07.aid.layout.analysis.LayoutAnalysis
 import com.github.tngcanh07.aid.layout.analysis.LayoutAnalysis.Success
 import com.github.tngcanh07.aid.layout.analysis.isWarned
-import java.lang.Error
 import java.text.DecimalFormat
 
 /**
@@ -12,7 +11,7 @@ import java.text.DecimalFormat
  */
 private val formatter = DecimalFormat()
 
-fun LayoutAnalysis.getLayoutInfo(): String = "$layoutName <${layoutId.toString(16)}>"
+fun LayoutAnalysis.getLayoutInfo(): String = "$layoutName - 0x${layoutId.toString(16)}"
 fun Success.getFormattedRenderTime(): String = formatter.format(this.renderTime)
 
 fun sort(items: List<LayoutAnalysis>): List<LayoutAnalysis> =
