@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.tngcanh07.aid.R
 import com.github.tngcanh07.aid.layout.analysis.analysisLayouts
+import com.github.tngcanh07.aid.layout.rendering.LayoutRenderingActivity
 import kotlinx.android.synthetic.main.analysis_layout_activity.containerView
 import kotlinx.android.synthetic.main.analysis_layout_activity.recyclerView
 
@@ -25,7 +26,9 @@ class LayoutAnalysisActivity : Activity() {
       throw IllegalArgumentException("Resource's package is required")
     }
 
-    adapter = LayoutAnalysisAdapter()
+    adapter = LayoutAnalysisAdapter {
+      LayoutRenderingActivity.startActivity(this, it.layoutId)
+    }
     recyclerView.layoutManager = LinearLayoutManager(this)
     recyclerView.adapter = adapter
 

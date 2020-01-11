@@ -5,7 +5,12 @@
     <activity
         android:name=".layout.LayoutAnalysisActivity"
         android:label="@string/analysis_layout_title"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait" />
+
+    <activity
+        android:name=".layout.rendering.LayoutRenderingActivity"
+        android:label="@string/rendering_layout_title" />
+
   </application>
 
 </manifest>

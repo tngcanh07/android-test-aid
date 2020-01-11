@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My Library</string>
     <string name="analysis_layout_title">Layout Analysis</string>
+    <string name="rendering_layout_title">Layout Rendering</string>
 </resources>
